@@ -1,5 +1,6 @@
 import type { Libp2p, PubSub, Connection, PeerId } from '@libp2p/interface'
 import type { Identify } from '@libp2p/identify'
+import type { Ping } from '@libp2p/ping'
 import type { DelegatedRoutingV1HttpApiClient } from '@helia/delegated-routing-v1-http-api-client'
 
 export interface DirectMessage {
@@ -14,6 +15,7 @@ export type Libp2pType = Libp2p<{
   identify: Identify
   directMessage: DirectMessage
   delegatedRouting: DelegatedRoutingV1HttpApiClient
+  ping: Ping
 }>
 
 export interface ChatMessage {

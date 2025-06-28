@@ -132,9 +132,11 @@ export async function handleMonitoring(
         const allPeers = []
         let count = 0
 
-        // Convert async iterator to array with limit
-        const peerIterator = libp2p.peerStore.all()
-        for await (const peer of peerIterator) {
+        // Await the promise to get the array of peers
+        const peerIterator = await libp2p.peerStore.all()
+        
+        // Iterate over the array of peers
+        for (const peer of peerIterator) {
           if (count >= limit) break
           
           allPeers.push({

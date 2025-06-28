@@ -55,8 +55,8 @@ export class DirectMessage extends TypedEventEmitter<DirectMessageEvents> implem
 
   async start(): Promise<void> {
     this.topologyId = await this.components.registrar.register(DIRECT_MESSAGE_PROTOCOL, {
-      onConnect: (peerId: PeerId, conn: Connection) => this.handleConnect(peerId),
-      onDisconnect: (peerId: PeerId) => this.handleDisconnect(peerId),
+      onConnect: (peerId: any, conn: any) => this.handleConnect(peerId),
+      onDisconnect: (peerId: any) => this.handleDisconnect(peerId),
     })
   }
 
@@ -72,11 +72,11 @@ export class DirectMessage extends TypedEventEmitter<DirectMessageEvents> implem
     }
   }
 
-  private handleConnect(peerId: PeerId): void {
+  private handleConnect(peerId: any): void {
     this.dmPeers.add(peerId.toString())
   }
 
-  private handleDisconnect(peerId: PeerId): void {
+  private handleDisconnect(peerId: any): void {
     this.dmPeers.delete(peerId.toString())
   }
 

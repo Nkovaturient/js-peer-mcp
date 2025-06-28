@@ -186,10 +186,13 @@ export async function handleFileSharing(
           throw new Error('No file data received')
         }
 
+        // Type assertion to ensure TypeScript knows fileData is Uint8Array
+        const receivedFileData: Uint8Array = fileData
+
         // Store the received file
         const file: ChatFile = {
           id: fileId,
-          body: fileData,
+          body: receivedFileData,
           sender: peerId
         }
         stateManager.addSharedFile(file)
@@ -198,7 +201,7 @@ export async function handleFileSharing(
           success: true,
           fileId,
           peerId,
-          fileSize: fileData.length,
+          fileSize: receivedFileData.length,
           timestamp: Date.now()
         }
       } catch (error) {
