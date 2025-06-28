@@ -83,7 +83,7 @@ export async function startLibp2p(config: NodeConfig = {}): Promise<Libp2pType> 
     services: {
       pubsub: gossipsub({
         allowPublishToZeroTopicPeers: true,
-        msgIdFn: msgIdFnStrictNoSign,
+        msgIdFn: msgIdFnStrictNoSign as any,
         ignoreDuplicatePublishError: true,
       }),
       delegatedRouting: () => delegatedClient,
@@ -91,7 +91,7 @@ export async function startLibp2p(config: NodeConfig = {}): Promise<Libp2pType> 
       directMessage: directMessage(),
       ping: ping(),
     },
-  }) as Libp2pType
+  }) as any
 
   if (!libp2p) {
     throw new Error('Failed to create libp2p node')
@@ -102,7 +102,7 @@ export async function startLibp2p(config: NodeConfig = {}): Promise<Libp2pType> 
   libp2p.services.pubsub.subscribe(CHAT_FILE_TOPIC)
 
   // Set up event listeners
-  libp2p.addEventListener('peer:discovery', (event) => {
+  libp2p.addEventListener('peer:discovery', (event: any) => {
     const { multiaddrs, id } = event.detail
 
     if (libp2p.getConnections(id)?.length > 0) {
@@ -112,7 +112,7 @@ export async function startLibp2p(config: NodeConfig = {}): Promise<Libp2pType> 
     dialWebRTCMaddrs(libp2p, multiaddrs)
   })
 
-  return libp2p
+  return libp2p as Libp2pType
 }
 
 export async function msgIdFnStrictNoSign(msg: Message): Promise<Uint8Array> {
@@ -161,7 +161,7 @@ async function getBootstrapMultiaddrs(client: DelegatedRoutingV1HttpApiClient): 
         if ((protos.includes('webtransport') || protos.includes('webrtc-direct')) && protos.includes('certhash')) {
           if (maddr.nodeAddress().address === '127.0.0.1') continue
           bootstrapAddrs.push(maddr.toString())
-          relayListenAddrs.push(getRelayListenAddr(maddr, p.ID))
+          relayListenAddrs.push(getRelayListenAddr(maddr, p.ID as any))
         }
       }
     }

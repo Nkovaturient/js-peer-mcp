@@ -55,14 +55,14 @@ export class DirectMessage extends TypedEventEmitter<DirectMessageEvents> implem
 
   async start(): Promise<void> {
     this.topologyId = await this.components.registrar.register(DIRECT_MESSAGE_PROTOCOL, {
-      onConnect: this.handleConnect.bind(this),
-      onDisconnect: this.handleDisconnect.bind(this),
+      onConnect: (peerId: PeerId, conn: Connection) => this.handleConnect(peerId),
+      onDisconnect: (peerId: PeerId) => this.handleDisconnect(peerId),
     })
   }
 
   async afterStart(): Promise<void> {
     await this.components.registrar.handle(DIRECT_MESSAGE_PROTOCOL, async ({ stream, connection }) => {
-      await this.receive(stream, connection)
+      await this.receive(stream, connection as any)
     })
   }
 
@@ -92,7 +92,7 @@ export class DirectMessage extends TypedEventEmitter<DirectMessageEvents> implem
     let stream: Stream | undefined
 
     try {
-      const conn = await this.components.connectionManager.openConnection(peerId, { signal: AbortSignal.timeout(5000) })
+      const conn = await this.components.connectionManager.openConnection(peerId as any, { signal: AbortSignal.timeout(5000) })
       if (!conn) {
         throw new Error(ERRORS.NO_CONNECTION)
       }

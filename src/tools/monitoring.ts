@@ -1,4 +1,4 @@
-import { Tool } from '@mcp/sdk/types.js'
+import { Tool } from '@modelcontextprotocol/sdk/types.js'
 import { StateManager } from '../state.js'
 
 export function createMonitoringTools(stateManager: StateManager): Tool[] {
@@ -132,12 +132,14 @@ export async function handleMonitoring(
         const allPeers = []
         let count = 0
 
-        for await (const peer of libp2p.peerStore.all()) {
+        // Convert async iterator to array with limit
+        const peerIterator = libp2p.peerStore.all()
+        for await (const peer of peerIterator) {
           if (count >= limit) break
           
           allPeers.push({
             peerId: peer.id.toString(),
-            addresses: peer.addresses.map(addr => addr.multiaddr.toString()),
+            addresses: peer.addresses.map((addr: any) => addr.multiaddr.toString()),
             protocols: peer.protocols,
             metadata: Object.fromEntries(peer.metadata.entries())
           })

@@ -1,4 +1,4 @@
-import { Tool } from '@mcp/sdk/types.js'
+import { Tool } from '@modelcontextprotocol/sdk/types.js'
 import { StateManager } from '../state.js'
 import { peerIdFromString } from '@libp2p/peer-id'
 import { CHAT_TOPIC, CHAT_FILE_TOPIC, PUBSUB_PEER_DISCOVERY } from '../constants.js'
@@ -148,7 +148,7 @@ export async function handleMessaging(
           success: true,
           topic,
           message,
-          recipients: result.recipients.map(peer => peer.toString()),
+          recipients: result.recipients.map((peer: any) => peer.toString()),
           recipientCount: result.recipients.length,
           timestamp: Date.now()
         }
@@ -162,7 +162,7 @@ export async function handleMessaging(
 
       try {
         const peer = peerIdFromString(peerId)
-        const success = await libp2p.services.directMessage.send(peer, message)
+        const success = await libp2p.services.directMessage.send(peer as any, message)
 
         if (success) {
           // Add to local direct message history
@@ -219,7 +219,7 @@ export async function handleMessaging(
         return {
           success: true,
           topic,
-          subscribers: libp2p.services.pubsub.getSubscribers(topic).map(peer => peer.toString())
+          subscribers: libp2p.services.pubsub.getSubscribers(topic).map((peer: any) => peer.toString())
         }
       } catch (error) {
         throw new Error(`Failed to subscribe to topic: ${error}`)
@@ -276,7 +276,7 @@ export async function handleMessaging(
         return {
           success: true,
           topic,
-          subscribers: subscribers.map(peer => peer.toString()),
+          subscribers: subscribers.map((peer: any) => peer.toString()),
           count: subscribers.length
         }
       } catch (error) {

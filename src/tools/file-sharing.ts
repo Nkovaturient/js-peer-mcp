@@ -1,4 +1,4 @@
-import { Tool } from '@mcp/sdk/types.js'
+import { Tool } from '@modelcontextprotocol/sdk/types.js'
 import { StateManager } from '../state.js'
 import { peerIdFromString } from '@libp2p/peer-id'
 import { CHAT_FILE_TOPIC, FILE_EXCHANGE_PROTOCOL } from '../constants.js'
@@ -153,7 +153,7 @@ export async function handleFileSharing(
           fileName: actualFileName,
           fileSize: fileBody.length,
           announced: announce,
-          recipients: announcementResult?.recipients.map(peer => peer.toString()) || []
+          recipients: announcementResult?.recipients.map((peer: any) => peer.toString()) || []
         }
       } catch (error) {
         throw new Error(`Failed to share file: ${error}`)
@@ -165,7 +165,7 @@ export async function handleFileSharing(
 
       try {
         const peer = peerIdFromString(peerId)
-        const stream = await libp2p.dialProtocol(peer, FILE_EXCHANGE_PROTOCOL)
+        const stream = await libp2p.dialProtocol(peer as any, FILE_EXCHANGE_PROTOCOL)
 
         let fileData: Uint8Array | null = null
 
@@ -237,7 +237,7 @@ export async function handleFileSharing(
         return {
           success: true,
           fileId,
-          recipients: result.recipients.map(peer => peer.toString()),
+          recipients: result.recipients.map((peer: any) => peer.toString()),
           recipientCount: result.recipients.length,
           timestamp: Date.now()
         }

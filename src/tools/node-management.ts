@@ -1,4 +1,4 @@
-import { Tool } from '@mcp/sdk/types.js'
+import { Tool } from '@modelcontextprotocol/sdk/types.js'
 import { StateManager } from '../state.js'
 import { startLibp2p } from '../lib/libp2p.js'
 import type { NodeConfig } from '../types/index.js'

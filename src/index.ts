@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { Server } from '@mcp/sdk/server/index.js'
-import { StdioServerTransport } from '@mcp/sdk/server/stdio.js'
-import { CallToolRequestSchema, ListResourcesRequestSchema, ListToolsRequestSchema, ReadResourceRequestSchema } from '@mcp/sdk/types.js'
+import { Server } from '@modelcontextprotocol/sdk/server/index.js'
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
+import { CallToolRequestSchema, ListResourcesRequestSchema, ListToolsRequestSchema, ReadResourceRequestSchema } from '@modelcontextprotocol/sdk/types.js'
 
 import { StateManager } from './state.js'
 import { createResources, handleResourceRead } from './resources.js'
@@ -51,7 +51,7 @@ class UniversalConnectivityMCPServer {
     })
 
     // Handle tool calls
-    this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
+    this.server.setRequestHandler(CallToolRequestSchema, async (request: any) => {
       const { name, arguments: args } = request.params
 
       try {
@@ -100,7 +100,7 @@ class UniversalConnectivityMCPServer {
     })
 
     // Handle resource reads
-    this.server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
+    this.server.setRequestHandler(ReadResourceRequestSchema, async (request: any) => {
       const { uri } = request.params
 
       try {

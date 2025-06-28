@@ -1,4 +1,4 @@
-import { Resource } from '@mcp/sdk/types.js'
+import { Resource } from '@modelcontextprotocol/sdk/types.js'
 import { StateManager } from './state.js'
 
 export function createResources(stateManager: StateManager): Resource[] {

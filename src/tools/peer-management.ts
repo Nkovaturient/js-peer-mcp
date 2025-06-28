@@ -1,4 +1,4 @@
-import { Tool } from '@mcp/sdk/types.js'
+import { Tool } from '@modelcontextprotocol/sdk/types.js'
 import { StateManager } from '../state.js'
 import { multiaddr } from '@multiformats/multiaddr'
 import { peerIdFromString } from '@libp2p/peer-id'
@@ -145,7 +145,7 @@ export async function handlePeerManagement(
         } catch {
           // If not a multiaddr, try as peer ID
           const peerId = peerIdFromString(target)
-          connection = await libp2p.dial(peerId)
+          connection = await libp2p.dial(peerId as any)
         }
 
         stateManager.updateConnections(libp2p.getConnections())
@@ -166,7 +166,7 @@ export async function handlePeerManagement(
 
       try {
         const peer = peerIdFromString(peerId)
-        await libp2p.hangUp(peer)
+        await libp2p.hangUp(peer as any)
         stateManager.updateConnections(libp2p.getConnections())
 
         return {
@@ -201,7 +201,7 @@ export async function handlePeerManagement(
 
       try {
         const peer = peerIdFromString(peerId)
-        const connections = libp2p.getConnections(peer)
+        const connections = libp2p.getConnections(peer as any)
         
         let peerInfo: PeerInfo = {
           peerId,
@@ -213,9 +213,9 @@ export async function handlePeerManagement(
 
         // Try to get peer info from peer store
         try {
-          if (await libp2p.peerStore.has(peer)) {
-            const storedPeer = await libp2p.peerStore.get(peer)
-            peerInfo.multiaddrs = storedPeer.addresses.map(addr => addr.multiaddr.toString())
+          if (await libp2p.peerStore.has(peer as any)) {
+            const storedPeer = await libp2p.peerStore.get(peer as any)
+            peerInfo.multiaddrs = storedPeer.addresses.map((addr: any) => addr.multiaddr.toString())
             peerInfo.protocols = storedPeer.protocols
           }
         } catch {
@@ -246,7 +246,12 @@ export async function handlePeerManagement(
         const peer = peerIdFromString(peerId)
         const startTime = Date.now()
         
-        await libp2p.services.ping.ping(peer, { signal: AbortSignal.timeout(timeout) })
+        // Check if ping service exists
+        if (!libp2p.services.ping) {
+          throw new Error('Ping service not available')
+        }
+        
+        await (libp2p.services.ping as any).ping(peer, { signal: AbortSignal.timeout(timeout) })
         
         const latency = Date.now() - startTime
 
