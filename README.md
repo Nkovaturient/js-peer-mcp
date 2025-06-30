@@ -218,10 +218,6 @@ The MCP server is built with a modular architecture:
 4. Add tests for new functionality
 5. Submit a pull request
 
-## License
-
-MIT License - see LICENSE file for details.
-
 ## Related Projects
 
 - [libp2p](https://github.com/libp2p/js-libp2p) - Modular peer-to-peer networking stack
