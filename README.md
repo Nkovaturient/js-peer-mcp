@@ -1,6 +1,6 @@
 # MCP Server for Universal Connectivity JS-Peer
 
-A Model Context Protocol (MCP) server that provides programmatic access to libp2p universal-connectivity functionality, enabling AI assistants to interact with peer-to-peer networks, manage connections, send messages, and share files.
+A Model Context Protocol (MCP) server that provides programmatic access to **js-libp2p** universal-connectivity functionality, enabling AI assistants to interact with peer-to-peer networks, manage connections, send messages, and share files.
 
 ## Features
 
@@ -47,13 +47,16 @@ npm run build
 
 ### Starting the MCP Server
 
-- 1) Run the MCP Server in terminal 
+- Run the MCP Server in terminal 
 
 ```bash
 npm start
 ```
 
-- 2) Connect with Claude Desktop App via `Edit Config` in `File` Navbar --> `Settings` --> `Developer` Tab or press `Ctrl + ,` and edit the config file as below:
+![Screenshot (622)](https://github.com/user-attachments/assets/c1c81509-62a5-463c-b15a-103545e962df)
+
+
+- Connect with Claude Desktop App via `Edit Config` in `File` Navbar --> `Settings` --> `Developer` Tab or just press `Ctrl + ,` to open `settings menu` and edit the config file in any IDE as below:
 
 ```bash
 claude_desktop_config.json
@@ -70,17 +73,34 @@ claude_desktop_config.json
 
 ```
 
-- 3) Reopen the Claude Desktop and a `New Chat`, you will now be able to view the `universal-connectivity` option in `search and tools` button of the input area.
 
-> ALWAYS ENSURE YOUR MCP SERVER IS RUNNING VIA `npm start` TO ACCESS THE JS-LIBP2P CMDs
-
+![Screenshot (617)](https://github.com/user-attachments/assets/ae1e1cda-4fda-4354-8bc3-cc5f921c0836)
 
 
-- 4) Go ahead and chat with Claude for any libp2p related commands and it will present you with relevant results seamlessly! incredible, right?
+- Close and Reopen the Claude Desktop App and a `New Chat`, you will now be able to view the `universal-connectivity` option in `search and tools` button of the input area.
+
+> ALWAYS ENSURE YOUR MCP SERVER IS RUNNING VIA `npm start` TO ACTIVATE THE JS-LIBP2P related operations
+
+![Screenshot (618)](https://github.com/user-attachments/assets/72c14eaf-63b8-444d-ad18-db2f6822f8b0)
+
+![Screenshot (619)](https://github.com/user-attachments/assets/cbcfa07d-4a21-4129-9e82-9501a413a409)
+
+
+
+- Go ahead and chat with Claude for any libp2p related commands and it will present you with relevant results seamlessly! incredible, right?
 
 Try this commands to get started:-
 > create libp2p node, 'start libp2p node', 'stop libp2p node', 'get node status'
 
+![Screenshot (620)](https://github.com/user-attachments/assets/17ee9612-30af-4a7f-8620-d4d15b4e4259)
+
+![Screenshot (621)](https://github.com/user-attachments/assets/cb949e36-a7ee-4be8-abfb-24e7dee5e861)
+
+
+- You can Further change permission access for this mcp-server through the left-bottom Your Account tab --> Settings --> Integrations --> `universal-connectivity`: tools and settings options:
+
+
+![Screenshot (616)](https://github.com/user-attachments/assets/d0246d92-3f41-4af7-a755-c1b5c524da88)
 
 
 ### Basic Operations
