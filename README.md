@@ -47,9 +47,41 @@ npm run build
 
 ### Starting the MCP Server
 
+- 1) Run the MCP Server in terminal 
+
 ```bash
 npm start
 ```
+
+- 2) Connect with Claude Desktop App via `Edit Config` in `File` Navbar --> `Settings` --> `Developer` Tab or press `Ctrl + ,` and edit the config file as below:
+
+```bash
+claude_desktop_config.json
+
+{
+  "mcpServers": {
+    "universal-connectivity": {
+      "command": "node",
+      "args": ["path-to-file-location/js-peer-mcp-server/dist/index.js"], //  C:/js-peer-mcp-server/dist/index.js
+      "env": {}
+    }
+  }
+}
+
+```
+
+- 3) Reopen the Claude Desktop and a `New Chat`, you will now be able to view the `universal-connectivity` option in `search and tools` button of the input area.
+
+> ALWAYS ENSURE YOUR MCP SERVER IS RUNNING VIA `npm start` TO ACCESS THE JS-LIBP2P CMDs
+
+
+
+- 4) Go ahead and chat with Claude for any libp2p related commands and it will present you with relevant results seamlessly! incredible, right?
+
+Try this commands to get started:-
+> create libp2p node, 'start libp2p node', 'stop libp2p node', 'get node status'
+
+
 
 ### Basic Operations
 
