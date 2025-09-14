@@ -36,13 +36,6 @@ A Model Context Protocol (MCP) server that provides programmatic access to **js-
 - Debug logging configuration
 - Peer store insights
 
-## Installation
-
-```bash
-npm install
-npm run build
-```
-
 ## Usage
 
 ### Starting the MCP Server
