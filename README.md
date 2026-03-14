@@ -133,17 +133,135 @@ Try this commands to get started:-
 }
 ```
 
-#### 4. Share a File
+#### 5. DeFi Oracle Data Submission
 
 ```json
 {
-  "method": "share_file",
+  "method": "submit_oracle_data",
   "params": {
-    "filePath": "/path/to/file.txt",
-    "announce": true
+    "asset": "ETH",
+    "price": 3500.50,
+    "source": "chainlink",
+    "timestamp": 1703123456789
   }
 }
 ```
+
+#### 6. Cross-Chain Message Relay
+
+```json
+{
+  "method": "relay_cross_chain_message",
+  "params": {
+    "sourceChain": "ethereum",
+    "targetChain": "polygon",
+    "message": "Bridge transfer request",
+    "priority": "high"
+  }
+}
+```
+
+#### 7. Submit DeFi Intent
+
+```json
+{
+  "method": "submit_intent",
+  "params": {
+    "intentType": "swap",
+    "parameters": {
+      "tokenIn": "ETH",
+      "tokenOut": "USDC",
+      "amount": "1.0"
+    },
+    "deadline": 1703123456789,
+    "solverFee": 0.001
+  }
+}
+```
+
+## DeFi Enhancements
+
+The MCP server now includes comprehensive DeFi capabilities that leverage libp2p's peer-to-peer networking for decentralized finance applications:
+
+### DeFi Tools
+
+#### Oracle Networks
+- `submit_oracle_data` - Submit price/data feeds to decentralized oracle networks
+- `query_oracle_data` - Query aggregated oracle data for assets
+- Decentralized price feed aggregation without centralized providers
+
+#### Cross-Chain Communication
+- `relay_cross_chain_message` - Relay messages between different blockchain networks
+- `get_bridge_status` - Monitor cross-chain bridge health and activity
+- Fault-tolerant cross-chain communication infrastructure
+
+#### Intent-Based DeFi
+- `submit_intent` - Submit DeFi intents for solver coordination
+- `discover_intent_solvers` - Find available solvers for intent execution
+- Privacy-preserving intent propagation and MEV-resistant coordination
+
+#### Decentralized Data Availability
+- `publish_da_data` - Publish data to decentralized availability networks
+- `retrieve_da_data` - Retrieve data with content addressing
+- Trust-minimized data sharing for DeFi protocols
+
+#### Keeper Networks
+- `register_keeper` - Register automated keepers for DeFi operations
+- `coordinate_keeper_action` - Coordinate liquidation, rebalancing, and harvest operations
+- Decentralized automation without centralized coordination
+
+### DeFi Resources
+
+- `defi://oracle-data` - Real-time oracle data feeds and aggregation
+- `defi://cross-chain-status` - Cross-chain bridge status and relay information
+- `defi://intents-active` - Active DeFi intents awaiting execution
+- `defi://keepers-network` - Keeper network status and capabilities
+- `defi://da-data` - Decentralized data availability catalog
+
+## Claude Skills Integration
+
+This enhanced MCP server is designed to work seamlessly with Claude's skills system, providing AI-powered DeFi coordination capabilities.
+
+### Setting up Claude Skills
+
+1. **Load the DeFi Skill Configuration**:
+   ```bash
+   # The claude-defi-skill.json file contains the skill definition
+   # Import this into Claude's skills system
+   ```
+
+2. **Skill Capabilities**:
+   - **Oracle Network Management**: Automated price feed submission and aggregation
+   - **Cross-Chain Coordination**: Intelligent bridge management and message routing
+   - **Intent-Based Execution**: AI-assisted intent creation and solver matching
+   - **Data Availability Management**: Decentralized data publishing and retrieval
+   - **Keeper Network Orchestration**: Automated DeFi operation coordination
+
+3. **Example Skill Usage**:
+   ```
+   "Help me set up a decentralized oracle network for ETH/USD price feeds"
+   "Coordinate a cross-chain swap from Ethereum to Polygon"
+   "Create an intent for yield farming optimization"
+   "Monitor keeper network health and performance"
+   ```
+
+### Benefits for DeFi
+
+- **Decentralization**: Replace centralized infrastructure with peer-to-peer networks
+- **Censorship Resistance**: Operate without single points of failure
+- **Cost Efficiency**: Reduce reliance on expensive centralized APIs
+- **Privacy**: Enable private coordination channels for sensitive operations
+- **Scalability**: Leverage libp2p's efficient P2P communication protocols
+- **Interoperability**: Connect disparate DeFi protocols and blockchains
+
+### Real-World DeFi Applications
+
+1. **Decentralized Oracles**: Chainlink-style oracle networks without centralized nodes
+2. **Cross-Chain Bridges**: Secure message passing between L1/L2 networks
+3. **Intent-Based DEXs**: Privacy-preserving intent propagation (like CoW Swap)
+4. **Keeper DAOs**: Decentralized automation networks for liquidations and rebalancing
+5. **DeFi Data Availability**: Off-chain data sharing for rollups and Layer 2 solutions
+6. **MEV Mitigation**: Private solver networks and coordination channels
 
 ## Available Tools
 
@@ -181,6 +299,28 @@ Try this commands to get started:-
 - `enable_debug_logging` - Configure debug logging
 - `get_peer_store_info` - Get peer store information
 
+### DeFi Tools
+
+#### Oracle Networks
+- `submit_oracle_data` - Submit price/data feeds to oracle networks
+- `query_oracle_data` - Query aggregated oracle data for assets
+
+#### Cross-Chain Communication
+- `relay_cross_chain_message` - Relay messages between blockchain networks
+- `get_bridge_status` - Monitor cross-chain bridge status
+
+#### Intent-Based DeFi
+- `submit_intent` - Submit DeFi intents for execution
+- `discover_intent_solvers` - Find available intent solvers
+
+#### Decentralized Data Availability
+- `publish_da_data` - Publish data to DA networks
+- `retrieve_da_data` - Retrieve data from DA networks
+
+#### Keeper Networks
+- `register_keeper` - Register automated keepers
+- `coordinate_keeper_action` - Coordinate keeper operations
+
 ## Available Resources
 
 - `connections://active` - Current active connections
@@ -190,6 +330,13 @@ Try this commands to get started:-
 - `files://shared` - Shared files catalog
 - `messages://topic/{topicName}` - Messages for specific topic
 - `messages://peer/{peerId}` - Direct messages with specific peer
+
+### DeFi Resources
+- `defi://oracle-data` - Oracle data feeds and aggregation
+- `defi://cross-chain-status` - Cross-chain bridge status
+- `defi://intents-active` - Active DeFi intents
+- `defi://keepers-network` - Keeper network status
+- `defi://da-data` - Decentralized data availability
 
 ## Configuration
 

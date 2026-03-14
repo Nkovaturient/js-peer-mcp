@@ -32,6 +32,37 @@ export function createResources(stateManager: StateManager): Resource[] {
       name: 'Shared Files',
       description: 'Files available for sharing',
       mimeType: 'application/json'
+    },
+    // DeFi Resources
+    {
+      uri: 'defi://oracle-data',
+      name: 'Oracle Data Feed',
+      description: 'Latest oracle data from the network',
+      mimeType: 'application/json'
+    },
+    {
+      uri: 'defi://cross-chain-status',
+      name: 'Cross-Chain Bridge Status',
+      description: 'Status of cross-chain bridges and relays',
+      mimeType: 'application/json'
+    },
+    {
+      uri: 'defi://intents-active',
+      name: 'Active DeFi Intents',
+      description: 'Currently active DeFi intents for execution',
+      mimeType: 'application/json'
+    },
+    {
+      uri: 'defi://keepers-network',
+      name: 'Keeper Network Status',
+      description: 'Status of automated keepers and their capabilities',
+      mimeType: 'application/json'
+    },
+    {
+      uri: 'defi://da-data',
+      name: 'Decentralized Data Availability',
+      description: 'Available decentralized data and content',
+      mimeType: 'application/json'
     }
   ]
 }
@@ -123,6 +154,121 @@ export async function handleResourceRead(uri: string, stateManager: StateManager
       return {
         files,
         count: files.length,
+        timestamp: Date.now()
+      }
+    }
+
+    case 'defi://oracle-data': {
+      const oracleMessages = state.messageHistory.get('defi-oracle-network') || []
+      const oracleData = oracleMessages.slice(-50).map(msg => {
+        try {
+          return JSON.parse(msg.msg)
+        } catch {
+          return null
+        }
+      }).filter(Boolean)
+
+      // Group by asset
+      const assets: { [key: string]: any[] } = {}
+      oracleData.forEach(data => {
+        if (!assets[data.asset]) {
+          assets[data.asset] = []
+        }
+        assets[data.asset].push(data)
+      })
+
+      return {
+        assets,
+        totalDataPoints: oracleData.length,
+        timestamp: Date.now()
+      }
+    }
+
+    case 'defi://cross-chain-status': {
+      const bridgeMessages = state.messageHistory.get('defi-cross-chain-relay') || []
+      const bridges: { [key: string]: any } = {}
+
+      bridgeMessages.slice(-100).forEach(msg => {
+        try {
+          const data = JSON.parse(msg.msg)
+          const key = `${data.sourceChain}-${data.targetChain}`
+          if (!bridges[key]) {
+            bridges[key] = {
+              sourceChain: data.sourceChain,
+              targetChain: data.targetChain,
+              messages: 0,
+              lastActivity: 0
+            }
+          }
+          bridges[key].messages++
+          bridges[key].lastActivity = Math.max(bridges[key].lastActivity, data.timestamp)
+        } catch {}
+      })
+
+      return {
+        bridges: Object.values(bridges),
+        totalBridges: Object.keys(bridges).length,
+        timestamp: Date.now()
+      }
+    }
+
+    case 'defi://intents-active': {
+      const intentMessages = state.messageHistory.get('defi-intent-coordination') || []
+      const intents = intentMessages.slice(-50).map(msg => {
+        try {
+          return JSON.parse(msg.msg)
+        } catch {
+          return null
+        }
+      }).filter(intent => intent && intent.status === 'pending')
+
+      return {
+        intents,
+        count: intents.length,
+        timestamp: Date.now()
+      }
+    }
+
+    case 'defi://keepers-network': {
+      const keeperMessages = state.messageHistory.get('defi-keeper-network') || []
+      const keepers: { [key: string]: any } = {}
+
+      keeperMessages.slice(-100).forEach(msg => {
+        try {
+          const data = JSON.parse(msg.msg)
+          if (data.peerId && data.type) {
+            keepers[data.peerId] = {
+              peerId: data.peerId,
+              type: data.type,
+              capabilities: data.capabilities || [],
+              lastActive: data.lastActive || Date.now(),
+              reputation: data.reputation || 1.0
+            }
+          }
+        } catch {}
+      })
+
+      return {
+        keepers: Object.values(keepers),
+        totalKeepers: Object.keys(keepers).length,
+        timestamp: Date.now()
+      }
+    }
+
+    case 'defi://da-data': {
+      const daMessages = state.messageHistory.get('defi-data-availability') || []
+      const dataEntries = daMessages.slice(-50).map(msg => {
+        try {
+          return JSON.parse(msg.msg)
+        } catch {
+          return null
+        }
+      }).filter(Boolean)
+
+      return {
+        dataEntries,
+        count: dataEntries.length,
+        totalSize: dataEntries.reduce((sum, entry) => sum + (entry.size || 0), 0),
         timestamp: Date.now()
       }
     }

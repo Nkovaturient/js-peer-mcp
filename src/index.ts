@@ -11,6 +11,8 @@ import { createPeerManagementTools, handlePeerManagement } from './tools/peer-ma
 import { createMessagingTools, handleMessaging } from './tools/messaging.js'
 import { createFileSharingTools, handleFileSharing } from './tools/file-sharing.js'
 import { createMonitoringTools, handleMonitoring } from './tools/monitoring.js'
+import { createDeFiTools } from './tools/defi.js'
+import { handleDeFi } from './tools/defi-handler.js'
 import { MCP_SERVER_NAME, MCP_SERVER_VERSION } from './constants.js'
 
 class UniversalConnectivityMCPServer {
@@ -45,6 +47,7 @@ class UniversalConnectivityMCPServer {
         ...createMessagingTools(this.stateManager),
         ...createFileSharingTools(this.stateManager),
         ...createMonitoringTools(this.stateManager),
+        ...createDeFiTools(this.stateManager),
       ]
 
       return { tools }
@@ -68,6 +71,8 @@ class UniversalConnectivityMCPServer {
           result = await handleFileSharing(name, args, this.stateManager)
         } else if (['get_network_stats', 'get_protocol_handlers', 'enable_debug_logging', 'get_peer_store_info'].includes(name)) {
           result = await handleMonitoring(name, args, this.stateManager)
+        } else if (['submit_oracle_data', 'query_oracle_data', 'relay_cross_chain_message', 'get_bridge_status', 'submit_intent', 'discover_intent_solvers', 'publish_da_data', 'retrieve_da_data', 'register_keeper', 'coordinate_keeper_action'].includes(name)) {
+          result = await handleDeFi(name, args, this.stateManager)
         } else {
           throw new Error(`Unknown tool: ${name}`)
         }

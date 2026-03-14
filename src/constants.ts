@@ -5,6 +5,13 @@ export const PUBSUB_PEER_DISCOVERY = 'universal-connectivity-browser-peer-discov
 export const FILE_EXCHANGE_PROTOCOL = '/universal-connectivity-file/1'
 export const DIRECT_MESSAGE_PROTOCOL = '/universal-connectivity/dm/1.0.0'
 
+// DeFi-specific topics
+export const ORACLE_TOPIC = 'defi-oracle-network'
+export const CROSS_CHAIN_TOPIC = 'defi-cross-chain-relay'
+export const INTENT_TOPIC = 'defi-intent-coordination'
+export const DA_TOPIC = 'defi-data-availability'
+export const KEEPER_TOPIC = 'defi-keeper-network'
+
 export const CIRCUIT_RELAY_CODE = 290
 export const MIME_TEXT_PLAIN = 'text/plain'
 

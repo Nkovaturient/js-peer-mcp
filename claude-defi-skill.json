@@ -1,0 +1,252 @@
+{
+  "name": "DeFi Libp2p Coordinator",
+  "description": "A comprehensive skill for DeFi coordination using libp2p peer-to-peer networking. Enables oracle data sharing, cross-chain communication, intent-based transactions, decentralized data availability, and automated keeper operations.",
+  "version": "1.0.0",
+  "author": "js-peer-mcp",
+  "tools": [
+    {
+      "name": "defi_oracle_network",
+      "description": "Manage decentralized oracle networks for price feeds and data sharing",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["submit_data", "query_data", "get_network_status"],
+            "description": "Oracle network action to perform"
+          },
+          "asset": {
+            "type": "string",
+            "description": "Asset symbol for data operations"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price data to submit"
+          },
+          "source": {
+            "type": "string",
+            "description": "Data source identifier"
+          }
+        },
+        "required": ["action"]
+      }
+    },
+    {
+      "name": "defi_cross_chain_relay",
+      "description": "Handle cross-chain message relaying and bridge coordination",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["relay_message", "check_bridge_status", "get_relay_history"],
+            "description": "Cross-chain action to perform"
+          },
+          "source_chain": {
+            "type": "string",
+            "description": "Source blockchain network"
+          },
+          "target_chain": {
+            "type": "string",
+            "description": "Target blockchain network"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message payload to relay"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["low", "medium", "high"],
+            "description": "Message priority level"
+          }
+        },
+        "required": ["action"]
+      }
+    },
+    {
+      "name": "defi_intent_coordination",
+      "description": "Coordinate intent-based DeFi transactions and solver networks",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["submit_intent", "discover_solvers", "get_active_intents"],
+            "description": "Intent coordination action"
+          },
+          "intent_type": {
+            "type": "string",
+            "enum": ["swap", "liquidity", "yield", "arbitrage"],
+            "description": "Type of DeFi intent"
+          },
+          "parameters": {
+            "type": "object",
+            "description": "Intent-specific parameters"
+          },
+          "deadline": {
+            "type": "number",
+            "description": "Intent execution deadline (timestamp)"
+          },
+          "max_fee": {
+            "type": "number",
+            "description": "Maximum solver fee"
+          }
+        },
+        "required": ["action"]
+      }
+    },
+    {
+      "name": "defi_data_availability",
+      "description": "Manage decentralized data availability and content sharing",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["publish_data", "retrieve_data", "list_available_data"],
+            "description": "Data availability action"
+          },
+          "data": {
+            "type": "string",
+            "description": "Data content to publish"
+          },
+          "content_type": {
+            "type": "string",
+            "description": "MIME type of the data"
+          },
+          "data_id": {
+            "type": "string",
+            "description": "Identifier of data to retrieve"
+          },
+          "retention_days": {
+            "type": "number",
+            "description": "Data retention period in days"
+          }
+        },
+        "required": ["action"]
+      }
+    },
+    {
+      "name": "defi_keeper_network",
+      "description": "Manage automated keeper networks for DeFi operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["register_keeper", "coordinate_action", "get_network_status"],
+            "description": "Keeper network action"
+          },
+          "keeper_type": {
+            "type": "string",
+            "enum": ["liquidation", "rebalance", "harvest", "arbitrage"],
+            "description": "Type of keeper operation"
+          },
+          "capabilities": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Keeper capabilities"
+          },
+          "protocol": {
+            "type": "string",
+            "description": "DeFi protocol for coordination"
+          },
+          "action_params": {
+            "type": "object",
+            "description": "Action-specific parameters"
+          }
+        },
+        "required": ["action"]
+      }
+    },
+    {
+      "name": "defi_network_monitoring",
+      "description": "Monitor DeFi network health and performance metrics",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["get_network_stats", "get_protocol_status", "analyze_performance"],
+            "description": "Monitoring action to perform"
+          },
+          "time_range": {
+            "type": "string",
+            "enum": ["1h", "24h", "7d", "30d"],
+            "description": "Time range for analysis"
+          },
+          "metrics": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Specific metrics to analyze"
+          }
+        },
+        "required": ["action"]
+      }
+    }
+  ],
+  "workflows": [
+    {
+      "name": "oracle_price_feed",
+      "description": "Automated oracle price feed submission and aggregation",
+      "steps": [
+        "Initialize libp2p node",
+        "Subscribe to oracle topic",
+        "Submit price data",
+        "Monitor network consensus"
+      ]
+    },
+    {
+      "name": "cross_chain_swap",
+      "description": "Execute cross-chain token swaps with intent coordination",
+      "steps": [
+        "Submit swap intent",
+        "Discover available solvers",
+        "Relay intent to target chain",
+        "Monitor execution status"
+      ]
+    },
+    {
+      "name": "keeper_liquidation",
+      "description": "Automated liquidation keeper coordination",
+      "steps": [
+        "Register as liquidation keeper",
+        "Monitor protocol health",
+        "Coordinate liquidation action",
+        "Execute liquidation transaction"
+      ]
+    }
+  ],
+  "integrations": {
+    "mcp_server": {
+      "endpoint": "universal-connectivity",
+      "tools_mapping": {
+        "defi_oracle_network": ["submit_oracle_data", "query_oracle_data"],
+        "defi_cross_chain_relay": ["relay_cross_chain_message", "get_bridge_status"],
+        "defi_intent_coordination": ["submit_intent", "discover_intent_solvers"],
+        "defi_data_availability": ["publish_da_data", "retrieve_da_data"],
+        "defi_keeper_network": ["register_keeper", "coordinate_keeper_action"],
+        "defi_network_monitoring": ["get_network_stats", "get_protocol_handlers"]
+      }
+    }
+  },
+  "capabilities": [
+    "oracle_data_sharing",
+    "cross_chain_communication",
+    "intent_based_execution",
+    "decentralized_data_availability",
+    "automated_keeper_operations",
+    "network_monitoring",
+    "fault_tolerant_messaging",
+    "privacy_preserving_coordination"
+  ],
+  "use_cases": [
+    "Decentralized price oracles",
+    "Cross-chain liquidity management",
+    "Intent-based DeFi protocols",
+    "Keeper network coordination",
+    "Decentralized data availability layers",
+    "MEV-resistant transaction coordination",
+    "Privacy-preserving solver networks"
+  ]
+}
