@@ -69,7 +69,7 @@ class UniversalConnectivityMCPServer {
           result = await handleMessaging(name, args, this.stateManager)
         } else if (['share_file', 'request_file', 'list_shared_files', 'announce_file'].includes(name)) {
           result = await handleFileSharing(name, args, this.stateManager)
-        } else if (['get_network_stats', 'get_protocol_handlers', 'enable_debug_logging', 'get_peer_store_info'].includes(name)) {
+        } else if (['list_available_tools', 'get_network_stats', 'get_protocol_handlers', 'enable_debug_logging', 'get_peer_store_info'].includes(name)) {
           result = await handleMonitoring(name, args, this.stateManager)
         } else if (['submit_oracle_data', 'query_oracle_data', 'relay_cross_chain_message', 'get_bridge_status', 'submit_intent', 'discover_intent_solvers', 'publish_da_data', 'retrieve_da_data', 'register_keeper', 'coordinate_keeper_action'].includes(name)) {
           result = await handleDeFi(name, args, this.stateManager)
@@ -129,7 +129,9 @@ class UniversalConnectivityMCPServer {
   async run(): Promise<void> {
     const transport = new StdioServerTransport()
     await this.server.connect(transport)
-    
+
+    console.log(`[MCP] ${MCP_SERVER_NAME} v${MCP_SERVER_VERSION} connected over stdio`)
+
     // Graceful shutdown
     process.on('SIGINT', async () => {
       const state = this.stateManager.getState()

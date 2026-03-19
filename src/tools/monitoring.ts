@@ -1,8 +1,17 @@
 import { Tool } from '@modelcontextprotocol/sdk/types.js'
 import { StateManager } from '../state.js'
+import { generateToolList } from './tool-list.js'
 
 export function createMonitoringTools(stateManager: StateManager): Tool[] {
   return [
+    {
+      name: 'list_available_tools',
+      description: 'Get a friendly human-readable list of all available tools and their parameters',
+      inputSchema: {
+        type: 'object',
+        properties: {}
+      }
+    },
     {
       name: 'get_network_stats',
       description: 'Retrieve network statistics and performance metrics',
@@ -62,6 +71,15 @@ export async function handleMonitoring(
   stateManager: StateManager
 ): Promise<any> {
   const state = stateManager.getState()
+
+  // list_available_tools doesn't require a running node
+  if (name === 'list_available_tools') {
+    const toolList = generateToolList(stateManager)
+    return {
+      success: true,
+      message: toolList
+    }
+  }
 
   if (!state.libp2pNode) {
     throw new Error('No libp2p node is running. Create and start a node first.')

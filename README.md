@@ -40,7 +40,19 @@ A Model Context Protocol (MCP) server that provides programmatic access to **js-
 
 ### Starting the MCP Server
 
-- Run the MCP Server in terminal 
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Build the project (optional; `npm start` will build automatically):
+
+```bash
+npm run build
+```
+
+3. Start the MCP server:
 
 ```bash
 npm start
@@ -52,20 +64,29 @@ npm start
 - Connect with Claude Desktop App via `Edit Config` in `File` Navbar --> `Settings` --> `Developer` Tab or just press `Ctrl + ,` to open `settings menu` and edit the config file in any IDE as below:
 
 ```bash
-claude_desktop_config.json
-
+# Example claude_desktop_config.json
 {
   "mcpServers": {
     "universal-connectivity": {
       "command": "node",
-      "args": ["path-to-file-location/js-peer-mcp-server/dist/index.js"], //  C:/js-peer-mcp-server/dist/index.js
+      "args": ["/absolute/path/to/js-peer-mcp/dist/index.js"],
       "env": {}
     }
   }
 }
-
 ```
 
+## Skill definition (SKILL.md)
+
+Claude Desktop loads skills from a `SKILL.md` file. This repo provides a ready-to-import skill definition:
+
+- `SKILL.md` — skill definition that matches the tools exposed by this MCP server.
+- `claude-universal-connectivity-skill.json` — same definition in pure JSON form.
+
+To load the skill in Claude Desktop:
+1. Open **Skills** in Claude Desktop.
+2. Import or load `SKILL.md` from this repo.
+3. After importing, you can call any of the listed tools from the skill.
 
 ![Screenshot (617)](https://github.com/user-attachments/assets/ae1e1cda-4fda-4354-8bc3-cc5f921c0836)
 

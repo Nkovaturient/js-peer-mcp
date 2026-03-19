@@ -23,5 +23,5 @@ export const BOOTSTRAP_PEER_IDS = [WEBTRANSPORT_BOOTSTRAP_PEER_ID]
 export const DEFAULT_DELEGATED_ROUTING_ENDPOINT = 'https://delegated-ipfs.dev'
 
 // MCP server metadata
-export const MCP_SERVER_NAME = 'universal-connectivity-js-peer'
+export const MCP_SERVER_NAME = 'js-peer-x-defi'
 export const MCP_SERVER_VERSION = '1.0.0'
