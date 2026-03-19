@@ -1,40 +1,6 @@
-# MCP Server for Universal Connectivity JS-Peer
+# JS-Peer x DeFi MCP Server
 
-A Model Context Protocol (MCP) server that provides programmatic access to **js-libp2p** universal-connectivity functionality, enabling AI assistants to interact with peer-to-peer networks, manage connections, send messages, and share files.
-
-## Features
-
-### 🔗 Node Management
-- Create and configure libp2p nodes with custom transports
-- Start/stop nodes with graceful shutdown
-- Monitor node status and addresses
-- Support for WebRTC, WebSockets, and WebTransport
-
-### 👥 Peer Management  
-- Discover peers using pubsub peer discovery
-- Connect to peers via multiaddr or peer ID
-- Manage active connections
-- Ping peers to test connectivity
-- Access peer store information
-
-### 💬 Messaging
-- Send messages to pubsub topics (group chat)
-- Send direct messages to specific peers
-- Subscribe/unsubscribe to topics
-- Retrieve message history
-- Get topic subscriber lists
-
-### 📁 File Sharing
-- Share files using the file exchange protocol
-- Request files from peers
-- Announce file availability to the network
-- List shared files with metadata
-
-### 📊 Network Monitoring
-- Real-time network statistics
-- Protocol handler information
-- Debug logging configuration
-- Peer store insights
+A Model Context Protocol (MCP) server that provides programmatic access to **js-libp2p** universal-connectivity functionality + DeFi Toolings, enabling AI assistants to interact with peer-to-peer networks, send messages, facilitate oracle networks coordination and all such over Libp2p as coordination layer.
 
 ## Usage
 
@@ -116,89 +82,6 @@ Try this commands to get started:-
 
 ![Screenshot (616)](https://github.com/user-attachments/assets/d0246d92-3f41-4af7-a755-c1b5c524da88)
 
-
-### Basic Operations
-
-#### 1. Create and Start a Node
-
-```json
-{
-  "method": "create_libp2p_node",
-  "params": {
-    "transports": ["webrtc", "websockets", "webtransport"],
-    "enableRelay": true
-  }
-}
-```
-
-#### 2. Connect to the Network
-
-```json
-{
-  "method": "discover_peers",
-  "params": {
-    "timeout": 10000
-  }
-}
-```
-
-#### 3. Send a Group Message
-
-```json
-{
-  "method": "send_group_message", 
-  "params": {
-    "topic": "universal-connectivity",
-    "message": "Hello from MCP!"
-  }
-}
-```
-
-#### 5. DeFi Oracle Data Submission
-
-```json
-{
-  "method": "submit_oracle_data",
-  "params": {
-    "asset": "ETH",
-    "price": 3500.50,
-    "source": "chainlink",
-    "timestamp": 1703123456789
-  }
-}
-```
-
-#### 6. Cross-Chain Message Relay
-
-```json
-{
-  "method": "relay_cross_chain_message",
-  "params": {
-    "sourceChain": "ethereum",
-    "targetChain": "polygon",
-    "message": "Bridge transfer request",
-    "priority": "high"
-  }
-}
-```
-
-#### 7. Submit DeFi Intent
-
-```json
-{
-  "method": "submit_intent",
-  "params": {
-    "intentType": "swap",
-    "parameters": {
-      "tokenIn": "ETH",
-      "tokenOut": "USDC",
-      "amount": "1.0"
-    },
-    "deadline": 1703123456789,
-    "solverFee": 0.001
-  }
-}
-```
 
 ## DeFi Enhancements
 
